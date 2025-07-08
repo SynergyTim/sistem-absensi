@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Absensi extends Model
 {
     use HasFactory;
+    protected $table = 'absensi';
     protected $fillable = ['siswa_id', 'kelas_id', 'tanggal', 'hadir', 'alpa', 'izin'];
 
     public function siswa()

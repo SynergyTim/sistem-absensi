@@ -1,6 +1,6 @@
-{{-- resources/views/absensi/index.blade.php --}}
-@extends('layouts.main')
+@extends('layouts')
 
+@section('title', 'Absensi')
 @section('content')
 <div class="container">
     <h3 class="mb-4">Input Absensi</h3>

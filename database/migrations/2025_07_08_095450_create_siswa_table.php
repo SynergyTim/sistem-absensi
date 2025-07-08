@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->string('nama_siswa');
-            $table->enum('jenis_kelamin',['L','P'])->unique();
+            $table->enum('jenis_kelamin',['L','P']);
             $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
             $table->timestamps();
         });

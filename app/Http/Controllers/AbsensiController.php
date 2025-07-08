@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AbsensiExport;
 use App\Models\Absensi;
 use App\Models\Kelas;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
@@ -39,4 +42,42 @@ class AbsensiController extends Controller
 
         return redirect()->back()->with('success', 'Absensi berhasil disimpan.');
     }
+    public function history(Request $request)
+    {
+        $kelas = Kelas::all();
+        $query = Absensi::with(['siswa.kelas']);
+
+        if ($request->kelas_id) {
+            $query->where('kelas_id', $request->kelas_id);
+        }
+
+        if ($request->tanggal) {
+            $query->where('tanggal', $request->tanggal);
+        }
+
+        $data = $query->orderBy('tanggal', 'desc')->get();
+
+        return view('absensi.history', compact('kelas', 'data'));
+    }
+    public function export()
+{
+    return Excel::download(new AbsensiExport, 'rekap-absensi.xlsx');
+}
+public function exportPdf(Request $request)
+{
+    $query = Absensi::with(['siswa', 'kelas']);
+
+    if ($request->kelas_id) {
+        $query->where('kelas_id', $request->kelas_id);
+    }
+
+    if ($request->tanggal) {
+        $query->where('tanggal', $request->tanggal);
+    }
+
+    $data = $query->orderBy('tanggal', 'desc')->get();
+
+    $pdf = Pdf::loadView('absensi.export_pdf', ['data' => $data]);
+    return $pdf->download('rekap-absensi.pdf');
+}
 }

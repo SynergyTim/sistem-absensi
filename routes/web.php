@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*

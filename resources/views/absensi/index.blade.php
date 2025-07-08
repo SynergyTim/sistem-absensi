@@ -3,7 +3,7 @@
 @section('title', 'Absensi')
 @section('content')
 <div class="container">
-    <h3 class="mb-4">Input Absensi</h3>
+    <h3 class="mb-4 text-light">Input Absensi</h3>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -11,7 +11,7 @@
 
     <form action="{{ route('absensi.index') }}" method="GET" class="mb-4">
         <div class="form-group">
-            <label for="kelas_id">Pilih Kelas</label>
+            <label class="text-light" for="kelas_id">Pilih Kelas</label>
             <select name="kelas_id" id="kelas_id" class="form-control" onchange="this.form.submit()">
                 <option value="">-- Pilih Kelas --</option>
                 @foreach($kelas as $kls)

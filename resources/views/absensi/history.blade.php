@@ -1,8 +1,9 @@
 @extends('layouts')
 
+@section('title', 'History')
 @section('content')
 <div class="container">
-    <h3>Riwayat Absensi</h3>
+    <h3 class="text-light">Riwayat Absensi</h3>
 
     <form method="GET" class="mb-3">
         <select name="kelas_id" class="form-select">

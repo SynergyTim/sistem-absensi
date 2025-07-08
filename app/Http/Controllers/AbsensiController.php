@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\AbsensiExport;
 use App\Models\Absensi;
 use App\Models\Kelas;
+use App\Models\Siswa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -12,10 +13,17 @@ use Maatwebsite\Excel\Facades\Excel;
 class AbsensiController extends Controller
 {
     public function index()
-    {
-        $kelas = Kelas::all();
-        return view('absensi.index', compact('kelas'));
+{
+    $kelas = Kelas::all();
+    $siswa = collect();
+
+    if (request('kelas_id')) {
+        $siswa = Siswa::where('kelas_id', request('kelas_id'))->get();
     }
+
+    return view('absensi.index', compact('kelas', 'siswa'));
+}
+
 
     public function store(Request $request)
     {

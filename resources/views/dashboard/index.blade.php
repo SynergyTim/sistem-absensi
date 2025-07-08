@@ -1,6 +1,6 @@
 @extends('layouts')
 
-@section('title', 'Dashboard Absensi')
+@section('title', 'Dashboard')
 @section('content')
 <div class="row">
     <div class="col-lg-6 col-xl-3 mb-4">

@@ -15,9 +15,9 @@
     <body class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
-               <main>
-                @yield('auth')
-               </main>
+                <main>
+                    @yield('auth')
+                </main>
             </div>
             <div id="layoutAuthentication_footer">
                 <footer class="footer-admin mt-auto footer-dark">

@@ -43,8 +43,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Resource: Siswa & Kelas
     Route::resource('siswa', SiswaController::class);
-
-    // LARAVEL NGE BUG AN NJIR MASA KUDUNE DI PAKSA DST ATIK PARAMETER KELAS
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
 
 });

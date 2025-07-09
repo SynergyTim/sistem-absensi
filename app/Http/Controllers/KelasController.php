@@ -21,8 +21,9 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('kelas.create');
+        return redirect()->route('kelas.index');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -53,9 +54,8 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kelas)
     {
-        return view('kelas.edit', compact('kelas'));
+        return redirect()->route('kelas.index');
     }
-
     /**
      * Update the specified resource in storage.
      */

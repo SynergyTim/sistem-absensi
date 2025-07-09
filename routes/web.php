@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
 
@@ -32,10 +33,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // -------------------------
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::get('/dashboard', fn() => view('dashboard.index'))->name('dashboard');
+    // Route::get('/dashboard', fn() => view('dashboard.index'))->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Absensi
     Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
+    Route::get('/absensi/get-siswa/{kelas_id}', [AbsensiController::class, 'getSiswa']);
+    Route::get('/absensi/get-data/{kelas_id}/{tanggal}', [AbsensiController::class, 'getAbsensi']);
+    Route::get('/dashboard/chart-absensi', [DashboardController::class, 'getChartAbsensi']);
     Route::post('/absensi/simpan', [AbsensiController::class, 'store'])->name('absensi.store');
     Route::get('/absensi/history', [AbsensiController::class, 'history'])->name('absensi.history');
     Route::get('/absensi/export', [AbsensiController::class, 'export'])->name('absensi.export');
@@ -43,8 +48,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Resource: Siswa & Kelas
     Route::resource('siswa', SiswaController::class);
+    Route::get('/siswa/import', [SiswaController::class, 'import'])->name('siswa.import');
+    Route::post('/siswa/import', [SiswaController::class, 'importStore'])->name('siswa.import.store');
 
     // LARAVEL NGE BUG AN NJIR MASA KUDUNE DI PAKSA DST ATIK PARAMETER KELAS
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
-
 });

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SiswaController extends Controller
 {
@@ -14,7 +17,8 @@ class SiswaController extends Controller
     public function index()
     {
         $siswa = Siswa::with('kelas')->get();
-        return view('siswa.index', compact('siswa'));
+        $kelas = Kelas::all();
+        return view('siswa.index', compact('siswa', 'kelas'));
     }
 
     /**
@@ -82,5 +86,50 @@ class SiswaController extends Controller
     {
         $siswa->delete();
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus');
+    }
+
+    // import
+    public function import()
+    {
+        $kelas = Kelas::all();
+        return view('siswa.import', compact('kelas'));
+    }
+
+    public function importStore(Request $request)
+    {
+        $request->validate([
+            'kelas_id' => 'required|exists:kelas,id',
+            'file' => 'required|mimes:csv,txt',
+        ]);
+
+        $file = fopen($request->file('file')->getRealPath(), 'r');
+
+        $header = fgetcsv($file, 0, ","); // delimiter koma
+
+        $successCount = 0;
+        $failCount = 0;
+
+        while (($row = fgetcsv($file, 0, ",")) !== false) {
+            if (count($row) < 2) {
+                $failCount++;
+                continue;
+            }
+
+            try {
+                Siswa::create([
+                    'nama_siswa' => trim($row[0]),
+                    'jenis_kelamin' => strtoupper(trim($row[1])),
+                    'kelas_id' => $request->kelas_id,
+                ]);
+                $successCount++;
+            } catch (\Exception $e) {
+                logger('Gagal simpan: ' . $e->getMessage());
+                $failCount++;
+            }
+        }
+
+        fclose($file);
+
+        return redirect()->route('siswa.index')->with('success', "Import selesai. Berhasil: $successCount, Gagal: $failCount");
     }
 }

@@ -48,9 +48,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Resource: Siswa & Kelas
     Route::resource('siswa', SiswaController::class);
-    Route::get('/siswa/import', [SiswaController::class, 'import'])->name('siswa.import');
-    Route::post('/siswa/import', [SiswaController::class, 'importStore'])->name('siswa.import.store');
 
-    // LARAVEL NGE BUG AN NJIR MASA KUDUNE DI PAKSA DST ATIK PARAMETER KELAS
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
 });

@@ -77,6 +77,69 @@ class AbsensiController extends Controller
         return redirect()->back()->with('success', 'Absensi berhasil disimpan.');
     }
 
+    public function chartKelas(Request $request, $kelas_id)
+    {
+        $hariIndo = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        $hariMapping = [
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu'
+        ];
+
+        $startDate = now()->subDays(6)->startOfDay();
+        $endDate = now()->endOfDay();
+
+        $data = Absensi::where('kelas_id', $kelas_id)
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get()
+            ->groupBy(function ($item) use ($hariMapping) {
+                $dayName = Carbon::parse($item->tanggal)->format('l'); // Monday, etc.
+                return $hariMapping[$dayName] ?? $dayName;
+            });
+
+        $hadir = [];
+        $tidakHadir = [];
+
+        foreach ($hariIndo as $hari) {
+            $hariData = $data[$hari] ?? collect();
+            $hadir[] = $hariData->sum('hadir');
+            $tidakHadir[] = $hariData->sum('izin') + $hariData->sum('alpa');
+        }
+
+        return response()->json([
+            'labels' => $hariIndo,
+            'hadir' => $hadir,
+            'tidak_hadir' => $tidakHadir,
+        ]);
+    }
+
+    public function absenHariIni(Request $request, $kelas_id)
+    {
+        $tanggal = now()->format('Y-m-d');
+        $siswaKelas = Siswa::where('kelas_id', $kelas_id)->get();
+
+        foreach ($siswaKelas as $siswa) {
+            Absensi::updateOrCreate(
+                [
+                    'siswa_id' => $siswa->id,
+                    'kelas_id' => $kelas_id,
+                    'tanggal' => $tanggal
+                ],
+                [
+                    'hadir' => 1,
+                    'alpa' => 0,
+                    'izin' => 0
+                ]
+            );
+        }
+
+        return back()->with('success', 'Absensi hari ini berhasil diperbarui.');
+    }
+
     public function history(Request $request)
     {
         $kelas = Kelas::all();

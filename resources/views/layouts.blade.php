@@ -142,18 +142,44 @@
                             <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
                             Dashboard
                         </a>
-
                         <!-- Data Kelas -->
                         <a class="nav-link" href="{{ route('kelas.index') }}">
                             <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                            Data Kelas
+                            Tambah Kelas
                         </a>
 
                         <!-- Data Siswa -->
-                        <a class="nav-link" href="{{ route('siswa.index') }}">
-                            <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                            Data Siswa
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" aria-expanded="false" aria-controls="collapseSiswa">
+                            <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                            Kelola Siswa
+                            <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapseSiswa" data-bs-parent="#accordionSidenav">
+                            <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                <a class="nav-link" href="{{ route('siswa.index') }}">
+                                    Import Siswa
+                                    <span class="badge bg-primary-soft text-primary ms-auto">Updated</span>
+                                </a>
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 1) }}">
+                                    Kelas 1
+                                </a>
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 2) }}">
+                                    Kelas 2
+                                </a>
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 4) }}">
+                                    Kelas 3
+                                </a>
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 5) }}">
+                                    Kelas 4
+                                </a>
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 3) }}">
+                                    Kelas 5
+                                </a>
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 6) }}">
+                                    Kelas 6
+                                </a>
+                            </nav>
+                        </div>
 
                         <!-- Absensi -->
                         <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">

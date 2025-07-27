@@ -132,4 +132,14 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')->with('success', "Import selesai. Berhasil: $successCount, Gagal: $failCount");
     }
+
+    public function halamanKelas($id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $siswa = Siswa::where('kelas_id', $id)->get();
+        $laki = $siswa->where('jenis_kelamin', 'L')->count();
+        $perempuan = $siswa->where('jenis_kelamin', 'P')->count();
+
+        return view('kelas.show', compact('kelas', 'siswa','laki','perempuan'));
+    }
 }

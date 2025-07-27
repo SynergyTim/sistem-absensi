@@ -51,4 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/siswa/import', [SiswaController::class, 'import'])->name('siswa.import');
     Route::post('/siswa/import', [SiswaController::class, 'importStore'])->name('siswa.import.store');
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
+
+    //page kelas
+    Route::get('/siswa-kelas/{id}', [SiswaController::class, 'halamanKelas'])->name('siswa-kelas.halaman');
+    Route::get('/siswa-kelas/{id}/chart-data', [AbsensiController::class, 'chartKelas'])->name('siswa-kelas.chart');
 });

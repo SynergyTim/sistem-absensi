@@ -1,0 +1,12 @@
+body.bg-primary {
+    background-image: url('/assets/img/page.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+}
+.card-header h3 {
+    color: #2c3e50;  /* Sesuaikan warna teks */
+    font-size: 1.5rem;
+}

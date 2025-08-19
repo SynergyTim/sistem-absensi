@@ -11,7 +11,7 @@
                         <div class="text-white-75 small">Data Siswa</div>
                         <div class="text-lg fw-bold">{{ $jumlahSiswa }}</div>
                     </div>
-                    <i class="feather-xl text-white-50" data-feather="calendar"></i>
+                    <i class="feather-xl text-white-50" data-feather="users"></i>
                 </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between small">
@@ -28,7 +28,7 @@
                         <div class="text-white-75 small">Data Kelas</div>
                         <div class="text-lg fw-bold">{{ $jumlahKelas }}</div>
                     </div>
-                    <i class="feather-xl text-white-50" data-feather="dollar-sign"></i>
+                    <i class="feather-xl text-white-50" data-feather="book"></i>
                 </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between small">
@@ -62,7 +62,7 @@
                         <div class="text-white-75 small">History Absensi</div>
                         <div class="text-lg fw-bold">{{ $jumlahHistoryAbsensi }}</div>
                     </div>
-                    <i class="feather-xl text-white-50" data-feather="message-circle"></i>
+                    <i class="feather-xl text-white-50" data-feather="activity"></i>
                 </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between small">

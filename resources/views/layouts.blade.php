@@ -16,9 +16,9 @@
     <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
     <style>
-    input[type="radio"]:checked {
-        accent-color: #0d6efd; 
-    }
+        input[type="radio"]:checked {
+            accent-color: #0d6efd;
+        }
     </style>
 </head>
 
@@ -30,7 +30,7 @@
         <!-- * * Tip * * You can use text or an image for your navbar brand.-->
         <!-- * * * * * * When using an image, we recommend the SVG format.-->
         <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
-        <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="{{ route('dashboard') }}">Administrator</a>
+        <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="{{ route('dashboard') }}">SDN 2 KRATON</a>
         <!-- Navbar Search Input-->
         <!-- * * Note: * * Visible only on and above the lg breakpoint-->
         <form class="form-inline me-auto d-none d-lg-block me-3">
@@ -61,49 +61,18 @@
                 <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownAlerts">
                     <h6 class="dropdown-header dropdown-notifications-header">
                         <i class="me-2" data-feather="bell"></i>
-                        Alerts Center
+                        Notifikasi
                     </h6>
-                    <!-- Example Alert 1-->
-                    <a class="dropdown-item dropdown-notifications-item" href="#!">
-                        <div class="dropdown-notifications-item-icon bg-warning"><i data-feather="activity"></i></div>
-                        <div class="dropdown-notifications-item-content">
-                            <div class="dropdown-notifications-item-content-details">December 29, 2021</div>
-                            <div class="dropdown-notifications-item-content-text">This is an alert message. It's nothing serious, but it requires your attention.</div>
-                        </div>
-                    </a>
-                    <!-- Example Alert 2-->
-                    <a class="dropdown-item dropdown-notifications-item" href="#!">
-                        <div class="dropdown-notifications-item-icon bg-info"><i data-feather="bar-chart"></i></div>
-                        <div class="dropdown-notifications-item-content">
-                            <div class="dropdown-notifications-item-content-details">December 22, 2021</div>
-                            <div class="dropdown-notifications-item-content-text">A new monthly report is ready. Click here to view!</div>
-                        </div>
-                    </a>
-                    <!-- Example Alert 3-->
-                    <a class="dropdown-item dropdown-notifications-item" href="#!">
-                        <div class="dropdown-notifications-item-icon bg-danger"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div class="dropdown-notifications-item-content">
-                            <div class="dropdown-notifications-item-content-details">December 8, 2021</div>
-                            <div class="dropdown-notifications-item-content-text">Critical system failure, systems shutting down.</div>
-                        </div>
-                    </a>
-                    <!-- Example Alert 4-->
-                    <a class="dropdown-item dropdown-notifications-item" href="#!">
-                        <div class="dropdown-notifications-item-icon bg-success"><i data-feather="user-plus"></i></div>
-                        <div class="dropdown-notifications-item-content">
-                            <div class="dropdown-notifications-item-content-details">December 2, 2021</div>
-                            <div class="dropdown-notifications-item-content-text">New user request. Woody has requested access to the organization.</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item dropdown-notifications-footer" href="#!">View All Alerts</a>
+                    
+                    <a class="dropdown-item dropdown-notifications-footer" href="#!">Lihat Notifikasi</a>
                 </div>
             </li>
             <!-- User Dropdown-->
             <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
-                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="assets/img/illustrations/profiles/profile-1.png" /></a>
+                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="assets/img/illustrations/profiles/default.png" /></a>
                 <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                     <h6 class="dropdown-header d-flex align-items-center">
-                        <img class="dropdown-user-img" src="assets/img/illustrations/profiles/profile-1.png" />
+                        <img class="dropdown-user-img" src="assets/img/illustrations/profiles/default.png" />
                         <div class="dropdown-user-details">
                             <div class="dropdown-user-details-name">
                                 {{ auth()->user()->name }}
@@ -114,10 +83,6 @@
                         </div>
                     </h6>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#!">
-                        <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
-                        Account
-                    </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item">
@@ -139,18 +104,18 @@
 
                         <!-- Dashboard -->
                         <a class="nav-link" href="{{ route('dashboard') }}">
-                            <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
+                            <div class="nav-link-icon"><i data-feather="home"></i></div>
                             Dashboard
                         </a>
                         <!-- Data Kelas -->
                         <a class="nav-link" href="{{ route('kelas.index') }}">
-                            <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
+                            <div class="nav-link-icon"><i data-feather="book"></i></div>
                             Tambah Kelas
                         </a>
 
                         <!-- Data Siswa -->
                         <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" aria-expanded="false" aria-controls="collapseSiswa">
-                            <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                            <div class="nav-link-icon"><i data-feather="users"></i></div>
                             Kelola Siswa
                             <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
@@ -160,22 +125,22 @@
                                     Import Siswa
                                     <span class="badge bg-primary-soft text-primary ms-auto">Updated</span>
                                 </a>
-                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 1) }}">
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 9) }}">
                                     Kelas 1
                                 </a>
-                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 2) }}">
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 10) }}">
                                     Kelas 2
                                 </a>
-                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 4) }}">
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 11) }}">
                                     Kelas 3
                                 </a>
-                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 5) }}">
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 12) }}">
                                     Kelas 4
                                 </a>
-                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 3) }}">
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 13) }}">
                                     Kelas 5
                                 </a>
-                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 6) }}">
+                                <a class="nav-link" href="{{ route('siswa-kelas.halaman', 14) }}">
                                     Kelas 6
                                 </a>
                             </nav>
@@ -183,7 +148,7 @@
 
                         <!-- Absensi -->
                         <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
-                            <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                            <div class="nav-link-icon"><i data-feather="check-circle"></i></div>
                             Absensi
                             <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>

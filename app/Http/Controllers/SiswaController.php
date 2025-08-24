@@ -38,6 +38,7 @@ class SiswaController extends Controller
         $request->validate([
             'nama_siswa' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
+            'tanggal_lahir' => 'required|date',
             'kelas_id' => 'required|exists:kelas,id',
         ]);
 
@@ -71,6 +72,7 @@ class SiswaController extends Controller
         $request->validate([
             'nama_siswa' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
+            'tanggal_lahir' => 'required|date',
             'kelas_id' => 'required|exists:kelas,id',
         ]);
 
@@ -104,22 +106,24 @@ class SiswaController extends Controller
 
         $file = fopen($request->file('file')->getRealPath(), 'r');
 
-        $header = fgetcsv($file, 0, ","); // delimiter koma
+        $header = fgetcsv($file, 0, ","); // skip header kalau ada
 
         $successCount = 0;
         $failCount = 0;
 
         while (($row = fgetcsv($file, 0, ",")) !== false) {
-            if (count($row) < 2) {
+            // minimal 3 kolom: nama, gender, tanggal_lahir
+            if (count($row) < 3) {
                 $failCount++;
                 continue;
             }
 
             try {
                 Siswa::create([
-                    'nama_siswa' => trim($row[0]),
+                    'nama_siswa'    => trim($row[0]),
                     'jenis_kelamin' => strtoupper(trim($row[1])),
-                    'kelas_id' => $request->kelas_id,
+                    'tanggal_lahir' => !empty($row[2]) ? date('Y-m-d', strtotime($row[2])) : null,
+                    'kelas_id'      => $request->kelas_id,
                 ]);
                 $successCount++;
             } catch (\Exception $e) {
@@ -133,6 +137,7 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')->with('success', "Import selesai. Berhasil: $successCount, Gagal: $failCount");
     }
 
+
     public function halamanKelas($id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -140,6 +145,6 @@ class SiswaController extends Controller
         $laki = $siswa->where('jenis_kelamin', 'L')->count();
         $perempuan = $siswa->where('jenis_kelamin', 'P')->count();
 
-        return view('kelas.show', compact('kelas', 'siswa','laki','perempuan'));
+        return view('kelas.show', compact('kelas', 'siswa', 'laki', 'perempuan'));
     }
 }

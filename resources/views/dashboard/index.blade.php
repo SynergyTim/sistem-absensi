@@ -113,6 +113,8 @@
                     <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Jenis Kelamin</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Umur</th>
                     <th>Kelas</th>
                 </tr>
             </thead>
@@ -122,6 +124,8 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $sw->nama_siswa }}</td>
                     <td>{{ $sw->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                    <td>{{ $sw->tanggal_lahir ? \Carbon\Carbon::parse($sw->tanggal_lahir)->format('d-m-Y') : '-' }}</td>
+                    <td>{{ $sw->umur ?? '-' }}</td>
                     <td>Kelas {{ $sw->kelas->nama_kelas }}</td>
                 </tr>
                 @endforeach

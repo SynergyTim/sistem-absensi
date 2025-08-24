@@ -25,6 +25,8 @@
                         <th><i class="fas fa-id-badge"></i> ID</th>
                         <th><i class="fas fa-user"></i> Nama Siswa</th>
                         <th><i class="fas fa-venus-mars"></i> Jenis Kelamin</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Umur</th>
                         <th><i class="fas fa-chalkboard"></i> Kelas</th>
                         <th><i class="fas fa-cogs"></i> Aksi</th>
                     </tr>
@@ -37,6 +39,8 @@
                         <td>
                             {{ $sw->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}
                         </td>
+                        <td>{{ $sw->tanggal_lahir ? \Carbon\Carbon::parse($sw->tanggal_lahir)->format('d-m-Y') : '-' }}</td>
+                        <td>{{ $sw->umur ?? '-' }}</td>
                         <td>Kelas {{ $sw->kelas->nama_kelas }}</td>
                         <td>
                             <a href="{{ route('siswa.edit', $sw->id) }}" class="btn btn-sm btn-warning">
@@ -70,7 +74,8 @@
                         <i class="fas fa-info-circle me-1"></i> <strong>Petunjuk Import:</strong>
                         <ul class="mb-0 mt-1 ps-4">
                             <li>Pilih <strong>Kelas</strong> terlebih dahulu.</li>
-                            <li>Gunakan file CSV dengan format: <code>nama_siswa, jenis_kelamin(L,P)</code>.</li>
+                            <li>Gunakan file CSV dengan format: <code>nama_siswa, jenis_kelamin(L/P), tanggal_lahir(YYYY-MM-DD)</code>.</li>
+                            <li>Contoh: <code>Budi, L, 2016-05-12</code></li>
                         </ul>
                     </div>
 

@@ -36,8 +36,10 @@
                 <table id="datatablesSimple" class="table table-bordered">
                     <thead class="table-light">
                         <tr class="text-center">
-                            <th>Tanggal</th>
+                            <th>Tanggal Absensi</th>
                             <th>Nama Siswa</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Umur</th>
                             <th>Kelas</th>
                             <th>Hadir</th>
                             <th>Izin</th>
@@ -51,19 +53,28 @@
                                 {{ \Carbon\Carbon::parse($row->tanggal)->locale('id')->translatedFormat('l, d F Y') }}
                             </td>
                             <td class="text-start">{{ $row->siswa->nama_siswa }}</td>
+                            <td>
+                                {{ $row->siswa->tanggal_lahir 
+                ? \Carbon\Carbon::parse($row->siswa->tanggal_lahir)->format('d-m-Y') 
+                : '-' }}
+                            </td>
+                            <td>
+                                {{ $row->siswa->umur ?? '-' }}
+                            </td>
                             <td>Kelas {{ $row->kelas->nama_kelas }}</td>
-                            <td class="text-center">
+                            <td>
                                 <input type="radio" disabled {{ $row->hadir ? 'checked' : '' }}>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <input type="radio" disabled {{ $row->izin ? 'checked' : '' }}>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <input type="radio" disabled {{ $row->alpa ? 'checked' : '' }}>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
+
                 </table>
             </div>
             {{-- Info --}}

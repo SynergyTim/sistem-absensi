@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <!-- Grafik Absensi -->
-     <div class="row">
+    <div class="row">
         <div class="col-md-8 mb-4">
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -48,6 +48,8 @@
                         <th>#</th>
                         <th>Nama Siswa</th>
                         <th>Jenis Kelamin</th>
+                        <th>Tanggal Lhir</th>
+                        <th>Umur</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +58,8 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $s->nama_siswa }}</td>
                         <td>{{ $s->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                        <td>{{ $s->tanggal_lahir ? \Carbon\Carbon::parse($s->tanggal_lahir)->format('d-m-Y') : '-' }}</td>
+                        <td>{{ $s->umur ?? '-' }}</td>
                     </tr>
                     @empty
                     <tr>
@@ -123,7 +127,15 @@
         data: {
             labels: ['Laki-laki', 'Perempuan'],
             datasets: [{
-                data: [{{ $laki }}, {{ $perempuan }}],
+                data: [{
+                    {
+                        $laki
+                    }
+                }, {
+                    {
+                        $perempuan
+                    }
+                }],
                 backgroundColor: ['#28a745', '#dc3545'],
                 borderWidth: 1
             }]

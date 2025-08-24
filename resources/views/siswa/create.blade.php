@@ -30,6 +30,10 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" class="form-control" required>
+                </div>
+                <div class="mb-3">
                     <label>Kelas</label>
                     <select name="kelas_id" class="form-control" required>
                         <option value="">-- Pilih --</option>

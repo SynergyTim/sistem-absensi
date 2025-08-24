@@ -31,6 +31,8 @@
             <tr>
                 <th>Tanggal</th>
                 <th>Nama Siswa</th>
+                <th>Tanggal Lahir</th>
+                <th>Umur</th>
                 <th>Kelas</th>
                 <th>Hadir</th>
                 <th>Izin</th>
@@ -42,6 +44,8 @@
             <tr>
                 <td>{{ $row->tanggal }}</td>
                 <td>{{ $row->siswa->nama_siswa }}</td>
+                <td>{{ \Carbon\Carbon::parse($row->siswa->tanggal_lahir)->format('d-m-Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($row->siswa->tanggal_lahir)->age }} th</td>
                 <td>{{ $row->kelas->nama_kelas }}</td>
                 <td>{!! $row->hadir ? '✓' : '' !!}</td>
                 <td>{!! $row->izin ? '✓' : '' !!}</td>

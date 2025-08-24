@@ -30,6 +30,10 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
                         <label>Kelas</label>
                         <select name="kelas_id" class="form-control" required>
                             @foreach($kelas as $kls)
@@ -40,7 +44,7 @@
                         </select>
                     </div>
                     <button class="btn btn-warning">Update</button>
-                <a href="{{ route('siswa.index') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ route('siswa.index') }}" class="btn btn-secondary">Kembali</a>
                 </form>
             </div>
         </div>

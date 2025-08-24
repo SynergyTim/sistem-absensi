@@ -77,6 +77,8 @@
                                     <th>No</th>
                                     <th>Nama Siswa</th>
                                     <th class="text-center">Jenis Kelamin</th>
+                                    <th class="text-center">Tanggal Lahir</th>
+                                    <th class="text-center">Umur</th>
                                     <th class="text-center">Hadir</th>
                                     <th class="text-center">Izin</th>
                                     <th class="text-center">Alpa</th>
@@ -137,11 +139,17 @@
                         const izin = absen.izin ? 'checked' : '';
                         const alpa = absen.alpa ? 'checked' : '';
 
+                        let tglLahir = siswa.tanggal_lahir 
+                        ? new Date(siswa.tanggal_lahir).toLocaleDateString('id-ID') 
+                        : '-';
+
                         tbody.innerHTML += `
                     <tr>
                         <td>${index + 1}</td>
                         <td>${siswa.nama_siswa}</td>
                         <td class="text-center">${siswa.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}</td>
+                        <td class="text-center">${tglLahir}</td>
+                        <td class="text-center">${siswa.umur ?? '-'}</td>
                         <td class="text-center">
                             <input type="radio" name="absen[${siswa.id}]" value="hadir" ${hadir} required>
                         </td>

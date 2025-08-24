@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <!-- Grafik Absensi -->
-    <div class="row">
+     <div class="row">
         <div class="col-md-8 mb-4">
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -127,15 +127,7 @@
         data: {
             labels: ['Laki-laki', 'Perempuan'],
             datasets: [{
-                data: [{
-                    {
-                        $laki
-                    }
-                }, {
-                    {
-                        $perempuan
-                    }
-                }],
+                data: [{{ $laki }}, {{ $perempuan }}],
                 backgroundColor: ['#28a745', '#dc3545'],
                 borderWidth: 1
             }]

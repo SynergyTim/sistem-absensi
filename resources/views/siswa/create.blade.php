@@ -1,6 +1,7 @@
 @extends('layouts')
 
 @section('title', 'Create Kelas')
+@section('sub-title', 'Manajemen Pengelolaan data siswa secara lengkap')
 @section('content')
 <div class="container mt-4">
     <div class="card shadow">

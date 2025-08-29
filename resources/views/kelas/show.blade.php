@@ -1,6 +1,7 @@
 @extends('layouts')
 
 @section('title', 'Kelas')
+@section('sub-title', 'Manajemen Kelas dan Pengelolaan data siswa secara lengkap')
 @section('content')
 <div class="container">
     <!-- Grafik Absensi -->

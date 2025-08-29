@@ -1,6 +1,7 @@
 @extends('layouts')
 
 @section('title', 'Kelas')
+@section('sub-title','Daftar kelas yang tersedia dan informasi terkait')
 @section('content')
 <div class="container">
     <div class="card mb-4">

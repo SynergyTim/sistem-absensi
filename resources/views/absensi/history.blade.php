@@ -1,5 +1,6 @@
 @extends('layouts')
-@section('title', 'History')
+@section('title', 'History Absensi')
+@section('sub-title', 'Catatan kehadiran untuk mengelola absensi secara akurat')
 @section('content')
 
 <div class="container">

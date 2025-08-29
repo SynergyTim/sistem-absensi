@@ -1,6 +1,7 @@
 @extends('layouts')
 
 @section('title', 'Dashboard')
+@section('sub-title', 'Ringkasan umum untuk memantau informasi utama secara cepat.')
 @section('content')
 <div class="row">
     <div class="col-lg-6 col-xl-3 mb-4">

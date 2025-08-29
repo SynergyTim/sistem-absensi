@@ -1,5 +1,6 @@
 @extends('layouts')
-@section('title', 'Absensi')
+@section('title', 'Absensi Siswa')
+@section('sub-title', 'Catatan kehadiran untuk mengelola absensi secara akurat')
 @section('content')
 
 <div class="container">
@@ -28,7 +29,7 @@
                     <div class="col-md-5 mb-2">
                         <label for="kelas_id" class="form-label">Pilih Kelas</label>
                         <select id="kelas_id" class="form-control">
-                            <option value="">-- Pilih Kelas --</option>
+                            <option value="">-- Silahkan Pilih Kelas --</option>
                             @foreach($kelas as $kls)
                             <option value="{{ $kls->id }}">Kelas {{ $kls->nama_kelas }}</option>
                             @endforeach

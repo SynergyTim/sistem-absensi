@@ -141,41 +141,83 @@ class AbsensiController extends Controller
     }
 
     public function history(Request $request)
-    {
-        $kelas = Kelas::all();
-        $query = Absensi::with(['siswa.kelas']);
+{
+    $kelas = Kelas::all();
+    $query = Absensi::with(['siswa.kelas']);
 
-        if ($request->kelas_id) {
-            $query->where('kelas_id', $request->kelas_id);
-        }
-
-        if ($request->tanggal) {
-            $query->where('tanggal', $request->tanggal);
-        }
-
-        $data = $query->orderBy('tanggal', 'desc')->get();
-
-        return view('absensi.history', compact('kelas', 'data'));
+    // Filter kelas
+    if ($request->kelas_id) {
+        $query->where('kelas_id', $request->kelas_id);
     }
-    public function export()
-    {
-        return Excel::download(new AbsensiExport, 'rekap-absensi.xlsx');
+
+    // Filter tanggal (spesifik per hari)
+    if ($request->tanggal) {
+        $query->whereDate('tanggal', $request->tanggal);
     }
+
+    // Filter bulan (1 = Januari, 12 = Desember)
+    if ($request->bulan) {
+        $query->whereMonth('tanggal', $request->bulan);
+
+        // Opsional: tambahin filter tahun biar lebih akurat
+        if ($request->tahun) {
+            $query->whereYear('tanggal', $request->tahun);
+        } else {
+            // Default ke tahun sekarang kalau tidak dipilih
+            $query->whereYear('tanggal', now()->year);
+        }
+    }
+
+    $data = $query->orderBy('tanggal', 'desc')->get();
+
+    return view('absensi.history', compact('kelas', 'data'));
+}
+
+    public function export(Request $request)
+{
+    $bulan = $request->bulan;
+    $tahun = $request->tahun ?? now()->year;
+    $kelas_id = $request->kelas_id;
+
+    return Excel::download(new AbsensiExport($bulan, $tahun, $kelas_id), 'rekap-absensi.xlsx');
+}
+
+
+
     public function exportPdf(Request $request)
-    {
-        $query = Absensi::with(['siswa', 'kelas']);
+{
+    $query = Absensi::with(['siswa', 'kelas']);
 
-        if ($request->kelas_id) {
-            $query->where('kelas_id', $request->kelas_id);
-        }
-
-        if ($request->tanggal) {
-            $query->where('tanggal', $request->tanggal);
-        }
-
-        $data = $query->orderBy('tanggal', 'desc')->get();
-
-        $pdf = Pdf::loadView('absensi.export_pdf', ['data' => $data]);
-        return $pdf->download('rekap-absensi.pdf');
+    if ($request->kelas_id) {
+        $query->where('kelas_id', $request->kelas_id);
     }
+
+    if ($request->tanggal) {
+        $query->whereDate('tanggal', $request->tanggal);
+    }
+
+    if ($request->bulan) {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun ?? now()->year;
+
+        $data = $query->whereMonth('tanggal', $bulan)
+                      ->whereYear('tanggal', $tahun)
+                      ->get()
+                      ->groupBy('siswa_id');
+
+        $pdf = Pdf::loadView('absensi.export_pdf_bulan', [
+            'data' => $data,
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+        ]);
+
+        return $pdf->download("rekap-absensi-bulan-$bulan-$tahun.pdf");
+    }
+
+    $data = $query->orderBy('tanggal', 'desc')->get();
+
+    $pdf = Pdf::loadView('absensi.export_pdf', ['data' => $data]);
+    return $pdf->download('rekap-absensi.pdf');
+}
+
 }

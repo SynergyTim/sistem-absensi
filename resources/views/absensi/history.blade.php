@@ -12,7 +12,7 @@
 
             {{-- Filter Form --}}
             <form method="GET" class="row g-2 mb-3">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <select name="kelas_id" class="form-select">
                         <option value="">Semua Kelas</option>
                         @foreach($kelas as $kls)
@@ -22,13 +22,49 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="form-control">
+                </div>
+                {{-- Filter bulan pakai select --}}
+                <div class="col-md-3">
+                    <select name="bulan" class="form-select">
+                        <option value="">Semua Bulan</option>
+                        @php
+                            $bulanIndo = [
+                                1 => 'Januari',
+                                2 => 'Februari',
+                                3 => 'Maret',
+                                4 => 'April',
+                                5 => 'Mei',
+                                6 => 'Juni',
+                                7 => 'Juli',
+                                8 => 'Agustus',
+                                9 => 'September',
+                                10 => 'Oktober',
+                                11 => 'November',
+                                12 => 'Desember',
+                            ];
+                        @endphp
+                        @foreach($bulanIndo as $key => $namaBulan)
+                            <option value="{{ $key }}" {{ request('bulan') == $key ? 'selected' : '' }}>
+                                {{ $namaBulan }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-4 d-flex gap-2">
                     <button class="btn btn-primary"><i class="fas fa-filter me-1"></i>Filter</button>
-                    <a href="{{ route('absensi.export') }}" class="btn btn-success"><i class="fas fa-file-excel me-1"></i>Excel</a>
-                    <a href="{{ route('absensi.exportPdf') }}?kelas_id={{ request('kelas_id') }}&tanggal={{ request('tanggal') }}" class="btn btn-danger"><i class="fas fa-file-pdf me-1"></i>PDF</a>
+                    <a href="{{ route('absensi.export', [
+    'kelas_id' => request('kelas_id'),
+    'tanggal' => request('tanggal'),
+    'bulan' => request('bulan'),
+    'tahun' => request('tahun')
+]) }}"
+class="btn btn-success">
+    <i class="fas fa-file-excel me-1"></i>Excel
+</a>
+
+                    <a href="{{ route('absensi.exportPdf') }}?kelas_id={{ request('kelas_id') }}&tanggal={{ request('tanggal') }}&bulan={{ request('bulan') }}" class="btn btn-danger"><i class="fas fa-file-pdf me-1"></i>PDF</a>
                 </div>
             </form>
 
@@ -55,9 +91,9 @@
                             </td>
                             <td class="text-start">{{ $row->siswa->nama_siswa }}</td>
                             <td>
-                                {{ $row->siswa->tanggal_lahir 
-                ? \Carbon\Carbon::parse($row->siswa->tanggal_lahir)->format('d-m-Y') 
-                : '-' }}
+                                {{ $row->siswa->tanggal_lahir
+                                    ? \Carbon\Carbon::parse($row->siswa->tanggal_lahir)->format('d-m-Y')
+                                    : '-' }}
                             </td>
                             <td>
                                 {{ $row->siswa->umur ?? '-' }}
@@ -75,13 +111,13 @@
                         </tr>
                         @endforeach
                     </tbody>
-
                 </table>
             </div>
+
             {{-- Info --}}
             <div class="alert alert-info small">
                 <i class="fas fa-info-circle me-1"></i>
-                Gunakan filter untuk menampilkan data absensi berdasarkan kelas dan tanggal. Anda juga dapat mencetak hasil dalam bentuk PDF dan Excel.
+                Gunakan filter untuk menampilkan data absensi berdasarkan kelas, tanggal, atau bulan. Anda juga dapat mencetak hasil dalam bentuk PDF dan Excel.
             </div>
         </div>
     </div>

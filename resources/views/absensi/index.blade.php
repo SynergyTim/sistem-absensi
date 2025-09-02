@@ -140,9 +140,9 @@
                         const izin = absen.izin ? 'checked' : '';
                         const alpa = absen.alpa ? 'checked' : '';
 
-                        let tglLahir = siswa.tanggal_lahir 
-                        ? new Date(siswa.tanggal_lahir).toLocaleDateString('id-ID') 
-                        : '-';
+                        let tglLahir = siswa.tanggal_lahir ?
+                            new Date(siswa.tanggal_lahir).toLocaleDateString('id-ID') :
+                            '-';
 
                         tbody.innerHTML += `
                     <tr>

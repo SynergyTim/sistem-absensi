@@ -82,9 +82,7 @@
                 <div class="dropdown no-caret">
                     <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="areaChartDropdownExample" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="text-gray-500" data-feather="more-vertical"></i></button>
                     <div class="dropdown-menu dropdown-menu-end animated--fade-in-up" aria-labelledby="areaChartDropdownExample">
-                        <a class="dropdown-item" href="#!">Hari ini</a>
                         <a class="dropdown-item" href="#!">Bulan ini</a>
-                        <a class="dropdown-item" href="#!">Tahun ini</a>
                     </div>
                 </div>
             </div>
